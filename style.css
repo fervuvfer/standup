@@ -1,0 +1,27 @@
+@import "compass/css3";
+
+body{
+   text-align:center;
+   padding:10%;
+   background: #ffffff;
+   font-family: 'Roboto', sans-serif;
+}
+.btn{
+   cursor:pointer;
+   display:inline-block;
+   padding:30px;
+   background: #1a1a1a;
+   border-radius: 4px;
+   color: #fff;
+   font-weight: 700;
+   text-transform:uppercase;
+   line-height:20px;
+   
+}
+
+.icon{
+  margin: 0 auto;
+  display: inline-block;
+  min-width: 100px;
+  max-width: 200px;
+  padding-bottom: 50px;
