@@ -16,6 +16,8 @@
 
   <link rel="stylesheet" href="style.css">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 
 
 </head>
@@ -26,17 +28,73 @@
    -->
 
    <script>
+jQuery(document).ready(function($) {
+	var body= $("body"),
+		pulseElements = $(".pulse"),
+		avatar = $(".avatar-container"),
+		name = $('.name');
+		tlClick = new TimelineLite(),
+		tlOpening = new TimelineLite();
+		TweenMax.set(name, {scale: 0.7});
+		TweenMax.set(pulseElements, {autoAlpha: '0.8'});
+
+	tlClick.pause();
+
+
+		tlOpening
+			.set(body, {className: '+=is-animating'})
+			.set(avatar, {autoAlpha: 0,rotationX:-90, y: '-=50px', scale: 0.4})
+			.to(avatar, 1.8, {autoAlpha: 1, rotationX: 0, y: '+=50px' , scale: 1, ease: Power4.easeInOut})
+			.staggerTo(pulseElements, 6,  {scale: '1.5', autoAlpha: '0', ease: Power1.easeOut, clearProps: 'all'}, 0.8, '-=0.5')
+			.to(name, 3, {autoAlpha: 0.5, scale: 0.8, y: 10, ease: Power0.easeNone}, '0.6')
+			.to(name, 3, {autoAlpha: 0, scale: 0.9, y: 20, ease: Power0.easeNone, clearProps: 'all'}, '3.6')
+			.set(body, {className: '-=is-animating'});
+
+	// TIMELINE CLICK
+	tlClick
+		.set(body, {className: '+=is-animating'})
+		.set(name, {scale: 0.7})
+		.set(pulseElements, {autoAlpha: '0.8'})
+		.to(avatar, 0.3, {scale: '0.85'})
+		.to(avatar, 0.6, { scale:'1', ease: Bounce.easeOut})
+		.staggerTo(pulseElements, 6,  {scale: '1.5', autoAlpha: '0', ease: Power1.easeOut}, 0.8, '-=0.5')
+		.to(name, 3, {autoAlpha: 0.5, scale: 0.8, y: 10, ease: Power0.easeNone}, '0.6')
+		.to(name, 3, {autoAlpha: 0, scale: 0.9, y: 20, ease: Power0.easeNone}, '3.6')
+		.set(body, {className: '-=is-animating'});
+
+
+	avatar.on("click", function(){
+		if(!body.hasClass('is-animating')){
+			tlClick.play(0);
+		}
+	})
+});
 
    </script>
+   <!--
 <div>
     <a onclick="document.getElementById('nyan').play();">
    <img class="icon" src="TR_ICON.webp"/>
 </div>
 </a>
-<p>Press Tom to hear what he's doing today.</p>
+-->
+
+
+
+<div class="avatar-container">
+    <a onclick="document.getElementById('nyan').play();">
+    <div class="avatar"><img src="TR_ICON.webp"></div> 
+</a>
+    <div class="pulse" id="pulse1"></div>        
+    <div class="pulse" id="pulse2"></div>        
+    <div class="pulse" id="pulse3"></div>        
+    <div class="pulse" id="pulse4"></div>        
+</div>
+<div class="info">Click on Tom to see what he's doing today.</div>
+
+
 
 <audio id="nyan" src="standup.mp3" preload="metadata" type="audio/mpeg">
-        Your browser does not support the audio element.
-</audio>
-</body>
+    Your browser does not support the audio element.
+</audio></body>
 </html>
